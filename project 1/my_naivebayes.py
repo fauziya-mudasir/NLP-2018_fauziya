@@ -96,12 +96,12 @@ def my_naive_bayes(textdoc):
     word_likelihood=likeLihood(docsFinal)
 
 
-    print("words in  vocab : {}".format(len(docsFinal)))
-    print("words in  posbag : {}".format(poslen))
-    print("words in  negbag : {}".format(neglen))
+    #print("words in  vocab : {}".format(len(docsFinal)))
+    #print("words in  posbag : {}".format(poslen))
+    #print("words in  negbag : {}".format(neglen))
     #print("Bag of vocab : {}".format(docs))
-    print("Log_prior neg  : {}".format((negcount)/(total)))
-    print("Log_prior pos : {}".format((poscount)/(total)))
+    #print("Log_prior neg  : {}".format((negcount)/(total)))
+    #print("Log_prior pos : {}".format((poscount)/(total)))
     #print("Bag of  negwords : {}".format(negbag))
     #print("Bag of poswords :{}".format(posbag))
     #print("likelihood for positiveclass :{}".format(poslikelihood))
@@ -138,8 +138,8 @@ def my_naive_bayes(textdoc):
             if p>n :
                 corrects+=1
         for line in testClasses[0]:
-            pcount=1
-            ncount=1
+            pcount=0
+            ncount=0
             total+=1
             for words in line:
                 if words in wordLikelihood.keys():
@@ -150,7 +150,7 @@ def my_naive_bayes(textdoc):
             if p < n :
                 corrects+=1
         accuracy=((corrects/total)*100)
-        print("the accuracy of the clasifier is: ",accuracy)
+        #print("the accuracy of the clasifier is: ",accuracy)
     tests(testClasses,wordLikelihood)
 
 
@@ -174,7 +174,7 @@ def my_naive_bayes(textdoc):
                         for r in i:
                             sum1 += r
         likelihood_sump =sum1 *probpos
-        print("The probability that the statement is positive is : {}".format(likelihood_sump))
+        #print("The probability that the statement is positive is : {}".format(likelihood_sump))
         return (likelihood_sump)
     p=testpos(textdoc)
      
@@ -196,7 +196,7 @@ def my_naive_bayes(textdoc):
                          for r in i:
                              sum2 += r
          likelihood_sumn =sum2 *probneg
-         print("The probability that the statement is negative is : {}".format(likelihood_sumn))                
+         #print("The probability that the statement is negative is : {}".format(likelihood_sumn))                
              
          return (likelihood_sumn)
     n=testneg(textdoc)
