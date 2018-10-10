@@ -158,6 +158,7 @@ def my_naive_bayes(textdoc):
 
 
     def testpos(tdoc):
+        likelihood_sump = []
         with open(tdoc, 'r') as doc:
             for line in doc:
                 text=re.sub(r"['\n\t!():;&$?*#^@+]","",line.lower())
@@ -173,14 +174,18 @@ def my_naive_bayes(textdoc):
                     for i in pvalues:
                         for r in i:
                             sum1 += r
-        likelihood_sump =sum1 *probpos
+
+                likelihood_sump.append((line,sum1 +probpos))
         #print("The probability that the statement is positive is : {}".format(likelihood_sump))
         return (likelihood_sump)
     p=testpos(textdoc)
      
     def testneg(tdoc):
-         with open(tdoc, 'r') as doc:
+
+        likelihood_sumn = []
+        with open(tdoc, 'r') as doc:
              for line in doc:
+
                  text=re.sub(r"['\n\t!():;&$?*#^@+]","", line.lower())
                  cleantexts=re.sub(r"[/,._-]"," ",text.lower())
                  cleantext=re.sub(r"[0-9]+","",cleantexts)
@@ -195,19 +200,19 @@ def my_naive_bayes(textdoc):
                      for i in nvalues:
                          for r in i:
                              sum2 += r
-         likelihood_sumn =sum2 *probneg
-         #print("The probability that the statement is negative is : {}".format(likelihood_sumn))                
-             
-         return (likelihood_sumn)
+                 likelihood_sumn.append((line,sum2 + probneg))
+
+        return (likelihood_sumn)
     n=testneg(textdoc)
      
     results =open("result.txt","w+")
-    if p > n:
-        results .write('The statement has a  positive sentiment 1')
-        print('The statement has a positive sentiment 1')
-    else:
-        results .write('The statement has a  negative sentiment 0')
-        print('The statement is negative 0')
+    for i in range (len(p)):
+        if p[i][1] > n[i][1]:
+            results .write('The statement:' + p[i][0] + ' ,has a  positive sentiment 1\n')
+            print('The statement:' + p[i][0] + ' ,has a  positive sentiment 1\n')
+        else:
+            results .write('The statement:' + p[i][0] + ' ,has a  negative sentiment 0\n')
+            print('The statement:' + p[i][0] + ' ,has a  negative sentiment 0\n')
 
 
 # In[ ]:
